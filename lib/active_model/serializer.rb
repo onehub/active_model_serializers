@@ -42,6 +42,8 @@ end
         def serializer_for(resource)
           if resource.respond_to?(:to_ary)
             ArraySerializer
+          elsif resource.respond_to?(:active_model_serializer)
+            resource.active_model_zerializer
           else
             begin
               Object.const_get "#{resource.class.name}Serializer"
@@ -54,6 +56,8 @@ end
         def serializer_for(resource)
           if resource.respond_to?(:to_ary)
             ArraySerializer
+          elsif resource.respond_to?(:active_model_serializer)
+            resource.active_model_serializer
           else
             "#{resource.class.name}Serializer".safe_constantize
           end
